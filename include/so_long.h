@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/23 17:54:23 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/11/24 14:31:31 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,22 @@
 # include <sys/shm.h>
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
+typedef struct	s_image
+{
+	void	*image;
+	char	*image_pix;
+	int		bits_per;
+	int		endian;
+	int		line_len;
+}t_image;
 
 typedef struct	s_data
 {
 	void	*mlx;
 	void	*win;
+	int		x;
+	int		y;
 	t_image caca;
 }t_data;
-
-typedef struct	s_image
-{
-	void	*image
-	char	*image_pix;
-	int		bits_per;
-	int		endian;
-	int		line_len;
-}t_image
 
 #endif
