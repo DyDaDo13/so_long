@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/24 14:31:31 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/11/28 15:49:05 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 
 # include "../minilibx-linux/mlx.h"
+# include "get_next_line.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -37,13 +38,21 @@ typedef struct	s_image
 	int		line_len;
 }t_image;
 
+typedef struct s_map
+{
+	int		player;
+	int		exit;
+	int		collectables;
+}t_map;
+
 typedef struct	s_data
 {
 	void	*mlx;
 	void	*win;
 	int		x;
 	int		y;
-	t_image caca;
+	t_map	map;
+	t_image	caca;
 }t_data;
 
 #endif
