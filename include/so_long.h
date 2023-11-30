@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/28 15:49:05 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:05:23 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,19 @@
 # include <sys/shm.h>
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
-typedef struct	s_image
+
+typedef struct s_map
+{
+	char			*map_line;
+	int				P;
+	int				E;
+	int				C;
+	int				map_height;
+	int				map_width;
+	struct	s_map	*next;
+}t_map;
+
+typedef struct s_image
 {
 	void	*image;
 	char	*image_pix;
@@ -38,21 +50,23 @@ typedef struct	s_image
 	int		line_len;
 }t_image;
 
-typedef struct s_map
-{
-	int		player;
-	int		exit;
-	int		collectables;
-}t_map;
 
-typedef struct	s_data
+typedef struct s_data
 {
+	char	**MAP;
 	void	*mlx;
 	void	*win;
 	int		x;
 	int		y;
-	t_map	map;
+	t_map	*map;
 	t_image	caca;
 }t_data;
+
+void	ft_lstadd_back(t_map **lst, t_map *new);
+t_map	*ft_lstlast(t_map *lst);
+t_map	*ft_lstnew(void *content);
+void	ft_lstdelone(t_map *lst, void (*del)(void*));
+int	ft_lstsize(t_map *lst);
+char	**init_map(int fd, t_data data);
 
 #endif

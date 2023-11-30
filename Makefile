@@ -7,6 +7,11 @@ NAME	= so_long
 FUNC	= so_long.c \
 get_next_line.c \
 get_next_line_utils.c \
+ft_lstnew.c \
+ft_lstadd_back.c \
+ft_lstlast.c \
+ft_lstsize.c \
+init_map.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

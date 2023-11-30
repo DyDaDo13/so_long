@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/28 18:02:14 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/11/30 21:15:22 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,169 +76,170 @@ void	ft_display(t_data *data)
 }
 
 
-char	*init_map(int file)
-{
-	char	*map;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// int	line_len(int file)
+// {
+// 	int		i;
+// 	char	*str;
+
+// 	i = 0;
+// 	str = get_next_line(file);
+// 	while (str != NULL)
+// 	{
+// 		i++;
+// 		str = get_next_line(file);
+// 	}
+// 	return (i);
+// }
+
+// int	ft_maplen(char *str)
+// {
+// 	int	i;
 	
-	map = get_next_line(file);
-	return (map);
-}
+// 	i = 0;
+// 	while (str[i] != '\n')
+// 		i++;
+// 	return (i);
+// }
 
-int	line_len(int file)
-{
-	int		i;
-	char	*str;
-
-	i = 0;
-	str = get_next_line(file);
-	while (str != NULL)
-	{
-		i++;
-		str = get_next_line(file);
-	}
-	return (i);
-}
-
-int	ft_maplen(char *str)
-{
-	int	i;
+// int	is_wall_valid(int file)
+// {
+// 	t_map *check;
+// 	char *map;
+// 	int		index;
+// 	int		size;
 	
-	i = 0;
-	while (str[i] != '\n')
-		i++;
-	return (i);
-}
-
-int	is_wall_valid(int file)
-{
-	t_map *check;
-	char *map;
-	int		index;
-	int		size;
+// 	check = malloc(sizeof(t_map));
+// 	check->player = 0;
+// 	check->collectables = 0;
+// 	check->exit = 0;
 	
-	check = malloc(sizeof(t_map));
-	check->player = 0;
-	check->collectables = 0;
-	check->exit = 0;
-	
-	index = 0;
-	map = get_next_line(file);
-	size = ft_maplen(map);
-	printf("%s", map);
-	while (map[index] != '\n')
-	{
-		if (map[index] != '1')
-			return (1);
-		index++;
-	}
-	index = 0;
-	map = get_next_line(file);
-	printf("%s", map);
-	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
-	{
-		while (map[index] != '\n')
-		{
-			if (map[index] == 'P')
-				check->player += 1;
-			if (map[index] == 'C')
-				check->collectables += 1;
-			if (map[index] == 'E')
-				check->exit += 1;
-			index++;
-		}
-	}
-	else
-		return (1);
-	index = 0;
-	map = get_next_line(file);
-	printf("%s", map);
-	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
-	{
-		while (map[index] != '\n')
-		{
-			if (map[index] == 'P')
-				check->player += 1;
-			else if (map[index] == 'C')
-				check->collectables += 1;
-			else if (map[index] == 'E')
-				check->exit += 1;
-			else
-				return (1);
-			index++;
-		}
-	}
-	else
-		return (1);
-	index = 0;
-	map = get_next_line(file);
-	printf("%s", map);
-	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
-	{
-		while (map[index] != '\n')
-		{
-			if (map[index] == 'P')
-				check->player += 1;
-			if (map[index] == 'C')
-				check->collectables += 1;
-			if (map[index] == 'E')
-				check->exit += 1;
-			index++;
-		}
-	}
-	else
-		return (1);
-	index = 0;
-	map = get_next_line(file);
-	printf("%s\n", map);
-	while (map[index] != '\0')
-	{
-		if (map[index] != '1')
-			return (1);
-		index++;
-	}
-	if (check->player != 1 || check->collectables < 1 || check->exit != 1)
-		return (1);
-	return (0);
-}
+// 	index = 0;
+// 	map = get_next_line(file);
+// 	size = ft_maplen(map);
+// 	printf("%s", map);
+// 	while (map[index] != '\n')
+// 	{
+// 		if (map[index] != '1')
+// 			return (1);
+// 		index++;
+// 	}
+// 	index = 0;
+// 	map = get_next_line(file);
+// 	printf("%s", map);
+// 	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
+// 	{
+// 		while (map[index] != '\n')
+// 		{
+// 			if (map[index] == 'P')
+// 				check->player += 1;
+// 			if (map[index] == 'C')
+// 				check->collectables += 1;
+// 			if (map[index] == 'E')
+// 				check->exit += 1;
+// 			index++;
+// 		}
+// 	}
+// 	else
+// 		return (1);
+// 	index = 0;
+// 	map = get_next_line(file);
+// 	printf("%s", map);
+// 	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
+// 	{
+// 		while (map[index] != '\n')
+// 		{
+// 			if (map[index] == 'P')
+// 				check->player += 1;
+// 			else if (map[index] == 'C')
+// 				check->collectables += 1;
+// 			else if (map[index] == 'E')
+// 				check->exit += 1;
+// 			else
+// 				return (1);
+// 			index++;
+// 		}
+// 	}
+// 	else
+// 		return (1);
+// 	index = 0;
+// 	map = get_next_line(file);
+// 	printf("%s", map);
+// 	if (map[0] == '1' && map[ft_maplen(map) - 1] == '1' && ft_maplen(map) == size)
+// 	{
+// 		while (map[index] != '\n')
+// 		{
+// 			if (map[index] == 'P')
+// 				check->player += 1;
+// 			if (map[index] == 'C')
+// 				check->collectables += 1;
+// 			if (map[index] == 'E')
+// 				check->exit += 1;
+// 			index++;
+// 		}
+// 	}
+// 	else
+// 		return (1);
+// 	index = 0;
+// 	map = get_next_line(file);
+// 	printf("%s\n", map);
+// 	while (map[index] != '\0')
+// 	{
+// 		if (map[index] != '1')
+// 			return (1);
+// 		index++;
+// 	}
+// 	if (check->player != 1 || check->collectables < 1 || check->exit != 1)
+// 		return (1);
+// 	return (0);
+// }
 
-int	is_map_valid(int file)
-{
-	if (is_wall_valid(file) == 1)
-		return (1);
-	return (0);
-}
+// int	is_map_valid(char **map)
+// {
+// 	if (is_wall_valid(map) == 1)
+// 		return (1);
+// 	return (0);
+// }
+
 
 int	main(int ac, char **av)
 {
-	//t_data	data;
+	t_data	data;
 	int		file;
-	//char	*map;
+	int		i = 0;
 
 	if (ac == 2)
 	{
 		file = open(av[1], O_RDONLY);
-		// printf("%s", get_next_line(file));
-		// return (0);
-		if (is_map_valid(file) == 0)
+		data.MAP = init_map(file, data);
+
+
+		
+		//if (is_map_valid(map) == 1);
+		//	return (1);
+		while (data.MAP[i])
 		{
-			printf("good");
+			printf("%s\n", data.MAP[i]);
+			i++;
 		}
-		else
-			printf("bad");
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
-		// map = init_map(file);
-		// printf("%s", map);
+		//if (is_map_valid(file) == 0)
+	
 		//ft_display(&data);
 	}
 	return (0);
