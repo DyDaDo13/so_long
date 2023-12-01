@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 21:05:23 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:55:07 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../minilibx-linux/mlx.h"
 # include "get_next_line.h"
+# include "ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -66,7 +67,12 @@ void	ft_lstadd_back(t_map **lst, t_map *new);
 t_map	*ft_lstlast(t_map *lst);
 t_map	*ft_lstnew(void *content);
 void	ft_lstdelone(t_map *lst, void (*del)(void*));
-int	ft_lstsize(t_map *lst);
+int		ft_lstsize(t_map *lst);
 char	**init_map(int fd, t_data data);
+size_t	ft_strlen(char *s);
+int		ft_printf(const char *format, ...);
+void	free_map(t_data data);
+void	free_list(t_map **map);
+void	free_all(t_data data);
 
 #endif

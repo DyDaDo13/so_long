@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/11/30 21:15:22 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:17:54 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,25 +222,34 @@ int	main(int ac, char **av)
 {
 	t_data	data;
 	int		file;
-	int		i = 0;
 
 	if (ac == 2)
 	{
 		file = open(av[1], O_RDONLY);
+		if (file == -1)
+			return (1);
 		data.MAP = init_map(file, data);
-
-
 		
-		//if (is_map_valid(map) == 1);
-		//	return (1);
-		while (data.MAP[i])
-		{
-			printf("%s\n", data.MAP[i]);
-			i++;
-		}
-		//if (is_map_valid(file) == 0)
-	
-		//ft_display(&data);
+		free_all(data);
+		close(file);
 	}
 	return (0);
 }
+
+		//if (is_map_valid(map) == 1);
+		//	return (1);
+		//while (data.MAP[i])
+		//{
+		//ft_printf("%s\n", data.MAP[i]);
+		//	i++;
+		//}
+		//if (is_map_valid(file) == 0)
+	
+		//ft_display(&data);
+		//i = 0;
+		//while (data.MAP[i])
+		//{
+		//	free(data.MAP[i]);
+		//	i++;
+		//}
+		//free(data.MAP);

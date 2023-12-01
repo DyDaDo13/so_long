@@ -12,6 +12,10 @@ ft_lstadd_back.c \
 ft_lstlast.c \
 ft_lstsize.c \
 init_map.c \
+ft_printf.c \
+functions.c \
+functions2.c \
+free_all.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

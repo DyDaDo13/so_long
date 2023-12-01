@@ -1,31 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 10:37:41 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/01 13:31:38 by dydado13         ###   ########.fr       */
+/*   Created: 2023/12/01 14:35:32 by dydado13          #+#    #+#             */
+/*   Updated: 2023/12/01 15:54:21 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../include/so_long.h"
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
-# endif
+void	free_map(t_data data)
+{
+	int		i;
 
-# include <stdio.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <unistd.h>
+	i = 0;
+	while (data.MAP[i])
+	{
+		free(data.MAP[i]);
+		i++;
+	}
+}
 
-char	*get_next_line(int fd);
-char	*ft_strchr(char *s, int c);
-char	*read_and_save(int fd, char *stash);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen(char *s);
+void	free_list(t_map **map)
+{
+	t_map	*tmp;
+	
+	tmp = *map;
+	while ((*map))
+	{
+		tmp = (*map)->next;
+		free((*map));
+		(*map) = tmp;
+	}
+}
 
-#endif
+void	free_all(t_data data)
+{
+	if (data.MAP)
+	{
+		free_map(data);
+		free(data.MAP);
+	}
+}
