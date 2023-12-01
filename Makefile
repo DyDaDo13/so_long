@@ -16,6 +16,7 @@ ft_printf.c \
 functions.c \
 functions2.c \
 free_all.c \
+validate_map.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
@@ -51,7 +52,7 @@ MLXS	= $(addprefix $(MLX_DIR), $(MLX))
 #┗━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┛
 #━━━━━━━━━━━━━━━━━━━━━━━┻━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-CC			= cc
+CC			= gcc
 RM			= rm -rf
 CFLAGS		= -Wall -Wextra -Werror -g
 INCLUDE		= -I.

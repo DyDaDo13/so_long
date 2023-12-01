@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 15:55:07 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/01 18:54:30 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,6 @@
 typedef struct s_map
 {
 	char			*map_line;
-	int				P;
-	int				E;
-	int				C;
-	int				map_height;
-	int				map_width;
 	struct	s_map	*next;
 }t_map;
 
@@ -54,11 +49,16 @@ typedef struct s_image
 
 typedef struct s_data
 {
-	char	**MAP;
-	void	*mlx;
-	void	*win;
-	int		x;
-	int		y;
+	char			**MAP;
+	void			*mlx;
+	void			*win;
+	int				P;
+	int				C;
+	int				E;
+	int				x;
+	int				y;
+	int				map_height;
+	int				map_width;
 	t_map	*map;
 	t_image	caca;
 }t_data;
@@ -68,11 +68,12 @@ t_map	*ft_lstlast(t_map *lst);
 t_map	*ft_lstnew(void *content);
 void	ft_lstdelone(t_map *lst, void (*del)(void*));
 int		ft_lstsize(t_map *lst);
-char	**init_map(int fd, t_data data);
+char	**init_map(int fd, t_data *data);
 size_t	ft_strlen(char *s);
 int		ft_printf(const char *format, ...);
 void	free_map(t_data data);
 void	free_list(t_map **map);
 void	free_all(t_data data);
+int	is_map_valid(char **map, t_data *data);
 
 #endif

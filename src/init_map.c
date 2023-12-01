@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:40:14 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/01 15:48:37 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:44:05 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,26 @@ void	remove_newlines(t_data data)
 	}
 }
 
-char	**init_map(int fd, t_data data)
+char	**init_map(int fd, t_data *data)
 {
 	int		i;
 	t_map	*cpy;
 
-	data.map = init_map_struct(fd);
-	cpy = data.map;
-	i = ft_lstsize(data.map);
-	data.map->map_height = i;
-	data.MAP = malloc(sizeof(char*) * i);
-	if (!data.MAP)
+	data->map = init_map_struct(fd);
+	cpy = data->map;
+	i = ft_lstsize(data->map);
+	data->map_height = i;
+	data->MAP = malloc(sizeof(char*) * i);
+	if (!data->MAP)
 		return (NULL);
 	i = 0;
 	while (cpy)
 	{
-		data.MAP[i] = cpy->map_line;
+		data->MAP[i] = cpy->map_line;
 		i++;
 		cpy = cpy->next;
 	}
-	free_list(&data.map);
-	remove_newlines(data);
-	return (data.MAP);
+	free_list(&data->map);
+	remove_newlines(*data);
+	return (data->MAP);
 }
