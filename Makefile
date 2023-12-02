@@ -17,6 +17,8 @@ functions.c \
 functions2.c \
 free_all.c \
 validate_map.c \
+find_p.c \
+flood_fill.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

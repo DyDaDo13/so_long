@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 18:54:30 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/02 14:39:43 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ typedef struct s_image
 	int		line_len;
 }t_image;
 
+typedef struct s_point
+{
+	int		x;
+	int		y;
+	int		C;
+	int		E;
+}t_point;
 
 typedef struct s_data
 {
@@ -74,6 +81,8 @@ int		ft_printf(const char *format, ...);
 void	free_map(t_data data);
 void	free_list(t_map **map);
 void	free_all(t_data data);
-int	is_map_valid(char **map, t_data *data);
+int		is_map_valid(char **map, t_data *data);
+void	find_p(char **map, t_point *P);
+void 	flood_fill(char **tab, t_point *size, t_point *begin);
 
 #endif

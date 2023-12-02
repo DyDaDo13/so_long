@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:24:28 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/01 19:14:28 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:18:57 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,15 +83,38 @@ int	is_objects_valid(char **map, t_data *data)
 	return (0);
 }
 
+int	is_path_valid(char **map, t_data *data)
+{
+	t_point *size;
+	t_point	*begin;
+	int		C;
+	int		E;
+
+	size = malloc(sizeof(t_point));
+	begin = malloc(sizeof(t_point));
+	
+	find_p(map, begin);
+	size->x = data->map_width;
+	size->y = (data->map_height - 1);
+	flood_fill(map, size, begin);
+	C = size->C;
+	E = size->E;
+	if (C != data->C || E != data->E)
+		return (1);
+	return (0);	
+}
+
 int	is_map_valid(char **map, t_data *data)
 {
 	if (is_wall_valid(map, data) == 1)
-		return (printf("\033[31mError : Wall Not Valid\033[0m\n"), 1);
+		return (ft_printf("\033[31mError : Wall Not Valid\033[0m\n"), 1);
 	if (is_size_valid(map, data) == 1)
-		return (printf("\033[31mError : Size Not Valid\033[0m\n"), 1);
+		return (ft_printf("\033[31mError : Size Not Valid\033[0m\n"), 1);
 	if ((data->map_height - 1) == data->map_width)
-		return (printf("\033[31mError : Is Not Rectangle\033[0m\n"), 1);
+		return (ft_printf("\033[31mError : Is Not Rectangle\033[0m\n"), 1);
 	if (is_objects_valid(map, data) == 1)
-		return (printf("\033[31mError : Objects Not Valid\033[0m\n"), 1);
+		return (ft_printf("\033[31mError : Objects Not Valid\033[0m\n"), 1);
+	if (is_path_valid(map, data) == 1)
+		return (ft_printf("\033[31mError : Path Not Valid\033[0m\n"), 1);
 	return (0);
 }
