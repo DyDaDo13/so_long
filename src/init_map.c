@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:40:14 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/01 17:44:05 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:14:11 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_map	*init_map_struct(int fd)
 	if (!lst)
 		return (NULL);
 	lst->map_line = get_next_line(fd);
+	lst->next = NULL;
 	start = lst;
 	while (lst->map_line)
 	{

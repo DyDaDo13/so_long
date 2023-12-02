@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/01 18:31:59 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:12:15 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	main(int ac, char **av)
 			return (1);
 		data.MAP = init_map(file, &data);
 		if (is_map_valid(data.MAP, &data) == 1)
-			return (1);
+			return (free_all(data), close(file), 1);
 		free_all(data);
 		close(file);
 	}
