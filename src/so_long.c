@@ -6,7 +6,7 @@
 /*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/02 16:12:15 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/02 16:38:14 by dydado13         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,50 +76,6 @@ void	ft_display(t_data *data)
 }
 
 
-
-
-
-		//ft_display(&data);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// int	line_len(int file)
-// {
-// 	int		i;
-// 	char	*str;
-
-// 	i = 0;
-// 	str = get_next_line(file);
-// 	while (str != NULL)
-// 	{
-// 		i++;
-// 		str = get_next_line(file);
-// 	}
-// 	return (i);
-// }
-
-// int	ft_maplen(char *str)
-// {
-// 	int	i;
-	
-// 	i = 0;
-// 	while (str[i] != '\n')
-// 		i++;
-// 	return (i);
-// }
-
-
 int	main(int ac, char **av)
 {
 	t_data	data;
@@ -133,23 +89,9 @@ int	main(int ac, char **av)
 		data.MAP = init_map(file, &data);
 		if (is_map_valid(data.MAP, &data) == 1)
 			return (free_all(data), close(file), 1);
+		ft_display(&data);
 		free_all(data);
 		close(file);
 	}
 	return (0);
 }
-
-		//while (data.MAP[i])
-		//{
-		//ft_printf("%s\n", data.MAP[i]);
-		//	i++;
-		//}
-		//if (is_map_valid(file) == 0)
-	
-		//i = 0;
-		//while (data.MAP[i])
-		//{
-		//	free(data.MAP[i]);
-		//	i++;
-		//}
-		//free(data.MAP);

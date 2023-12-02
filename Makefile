@@ -7,10 +7,7 @@ NAME	= so_long
 FUNC	= so_long.c \
 get_next_line.c \
 get_next_line_utils.c \
-ft_lstnew.c \
-ft_lstadd_back.c \
-ft_lstlast.c \
-ft_lstsize.c \
+lst_functions.c \
 init_map.c \
 ft_printf.c \
 functions.c \
