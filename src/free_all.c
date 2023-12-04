@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 14:35:32 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/04 16:23:35 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:50:16 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	free_map(t_data *data)
 	int		i;
 
 	i = 0;
-	while (data->MAP[i])
+	while (data->map[i])
 	{
-		free(data->MAP[i]);
+		free(data->map[i]);
 		i++;
 	}
 }
@@ -27,7 +27,7 @@ void	free_map(t_data *data)
 void	free_list(t_map **map)
 {
 	t_map	*tmp;
-	
+
 	tmp = *map;
 	while ((*map))
 	{
@@ -39,9 +39,9 @@ void	free_list(t_map **map)
 
 void	free_all(t_data *data)
 {
-	if (data->MAP)
+	if (data->map)
 	{
 		free_map(data);
-		free(data->MAP);
+		free(data->map);
 	}
 }

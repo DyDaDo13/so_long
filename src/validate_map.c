@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 18:24:28 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/04 16:31:49 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:00:44 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,26 +69,26 @@ int	is_objects_valid(char **map, t_data *data)
 		while (map[i][++j])
 		{
 			if (map[i][j] == 'P')
-				data->P += 1;
+				data->p += 1;
 			else if (map[i][j] == 'C')
-				data->C += 1;
+				data->c += 1;
 			else if (map[i][j] == 'E')
-				data->E += 1;
+				data->e += 1;
 			else if (map[i][j] != '1' && map[i][j] != '0')
 				return (1);
 		}
 	}
-	if (data->C < 1 || data->E != 1 || data->P != 1)
+	if (data->c < 1 || data->e != 1 || data->p != 1)
 		return (1);
 	return (0);
 }
 
 int	is_path_valid(char **map, t_data *data)
 {
-	t_point *size;
+	t_point	*size;
 	t_point	*begin;
-	int		C;
-	int		E;
+	int		c;
+	int		e;
 
 	size = malloc(sizeof(t_point));
 	begin = malloc(sizeof(t_point));
@@ -98,18 +98,18 @@ int	is_path_valid(char **map, t_data *data)
 	size->x = data->map_width;
 	size->y = (data->map_height - 1);
 	flood_fill(map, size, begin, data);
-	C = size->C;
-	E = size->E;
-	if (C != data->C || E != data->E)
+	c = size->c;
+	e = size->e;
+	if (c != data->c || e != data->e)
 		return (free(size), free(begin), 1);
-	return (free(size), free(begin), 0);	
+	return (free(size), free(begin), 0);
 }
 
 int	is_map_valid(char **map, t_data *data)
 {
-	data->C = 0;
-	data->E = 0;
-	data->P = 0;
+	data->c = 0;
+	data->e = 0;
+	data->p = 0;
 	if (map[0] && map[0][0] == '1')
 	{
 		if (is_wall_valid(map, data) == 1)
@@ -122,7 +122,7 @@ int	is_map_valid(char **map, t_data *data)
 			return (ft_printf("\033[31mError : Objects Not Valid\033[0m\n"), 1);
 		if (is_path_valid(map, data) == 1)
 			return (ft_printf("\033[31mError : Path Not Valid\033[0m\n"), 1);
-		return (ft_printf("\033[32mMap Valid\033[0m\n"), 0);	
+		return (ft_printf("\033[32mMap Valid\033[0m\n"), 0);
 	}
 	return (ft_printf("\033[31mError : Map Not Valid\033[0m\n"), 1);
 }

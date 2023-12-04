@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:31:28 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:47:41 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,22 @@
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char			*map_line;
-	struct	s_map	*next;
+	struct s_map	*next;
 }	t_map;
 
-typedef struct	s_image
+typedef struct s_image
 {
-	void 	*image;
+	void	*image;
 	char	*image_pix;
 	int		bits_per;
 	int		endian;
 	int		line_len;
 }	t_image;
 
-typedef struct	s_sprites
+typedef struct s_sprites
 {
 	t_image	coin;
 	t_image	walls;
@@ -59,24 +59,24 @@ typedef struct	s_sprites
 	t_image	player_back;
 }	t_sprites;
 
-typedef struct	s_point
+typedef struct s_point
 {
 	int		x;
 	int		y;
-	int		C;
-	int		E;
+	int		c;
+	int		e;
 }t_point;
 
-typedef struct	s_data
+typedef struct s_data
 {
-	char			**MAP;
+	char			**map;
 	void			*mlx;
 	void			*win;
-	int				C_game;
-	int				mooves;
-	int				P;
-	int				C;
-	int				E;
+	int				c_game;
+	int				moves;
+	int				p;
+	int				c;
+	int				e;
 	int				x;
 	int				y;
 	int				e_x;
@@ -85,7 +85,7 @@ typedef struct	s_data
 	int				p_y;
 	int				map_height;
 	int				map_width;
-	t_map			*map;
+	t_map			*map_char;
 	t_sprites		sprites;
 }t_data;
 
@@ -110,5 +110,11 @@ void	init_image2(t_data *data);
 void	init_image3(t_data *data);
 void	destroy_all_images(t_data *data);
 char	**map_dup(char **tab, t_data *data);
+void	move_up(t_data *data);
+void	move_down(t_data *data);
+void	move_left(t_data *data);
+void	move_right(t_data *data);
+void	end_game(t_data *data);
+void	draw_images(t_data *data, int i, int j);
 
 #endif

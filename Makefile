@@ -20,6 +20,8 @@ ft_strcmp.c \
 init_images.c \
 destroy_all_images.c \
 map_dup.c \
+moves.c \
+draw_images.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

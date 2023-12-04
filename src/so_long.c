@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:48:07 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:49:10 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_stop(t_data *data)
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
 	free_all(data);
-	exit(0);	
+	exit(0);
 	return (0);
 }
 
@@ -27,54 +27,27 @@ int	ft_key_check(int key, t_data *data)
 {
 	data->x = data->p_x * 32;
 	data->y = data->p_y * 32;
-	if (key == XK_Escape || data->MAP[data->p_y][data->p_x] == 'O')
+	if (key == XK_Escape || data->map[data->p_y][data->p_x] == 'O')
 		ft_stop(data);
-	if (data->y > 32 && data->MAP[data->p_y - 1][data->p_x] != '1' && key == XK_w) // haut
+	if (data->y > 32 && data->map[data->p_y - 1][data->p_x] != '1' &&
+		key == XK_w)
+		move_up(data);
+	if (data->y < ((data->map_height - 1) * 32)
+		&& data->map[data->p_y + 1][data->p_x] != '1' && key == XK_s)
+		move_down(data);
+	if (data->x > 32 && data->map[data->p_y][data->p_x - 1] != '1' &&
+		key == XK_a)
+		move_left(data);
+	if (data->x < (data->map_width * 32)
+		&& data->map[data->p_y][data->p_x + 1] != '1' && key == XK_d)
+		move_right(data);
+	if (data->map[data->p_y][data->p_x] == 'C')
 	{
-		data->y -= 32;
-		data->p_y -= 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_back.image, data->x, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y + 32);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
-		ft_printf("Mooves = %i\n", data->mooves += 1);
+		data->map[data->p_y][data->p_x] = '0';
+		data->c_game += 1;
 	}
-	if (data->y < ((data->map_height - 1) * 32) && data->MAP[data->p_y + 1][data->p_x] != '1' && key == XK_s) // bas
-	{
-		data->y += 32;
-		data->p_y += 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_front.image, data->x, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y - 32);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
-		ft_printf("Mooves = %i\n", data->mooves += 1);
-	}
-	if (data->x > 32 && data->MAP[data->p_y][data->p_x - 1] != '1' && key == XK_a) // gauche
-	{
-		data->x -= 32;
-		data->p_x -= 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_left.image, data->x, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x + 32, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
-		ft_printf("Mooves = %i\n", data->mooves += 1);
-	}
-	if (data->x < (data->map_width * 32) && data->MAP[data->p_y][data->p_x + 1] != '1' && key == XK_d) // droite
-	{
-		data->x += 32;
-		data->p_x += 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_right.image, data->x, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x - 32, data->y);
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
-		ft_printf("Mooves = %i\n", data->mooves += 1);
-	}
-	if (data->MAP[data->p_y][data->p_x] == 'C')
-	{
-		data->MAP[data->p_y][data->p_x] = '0';
-		data->C_game += 1;
-	}
-	if (data->C == data->C_game)
-	{
-		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_open.image, (data->e_x * 32), (data->e_y * 32));
-		data->MAP[data->e_y][data->e_x] = 'O';
-	}
+	if (data->c == data->c_game)
+		end_game(data);
 	return (0);
 }
 
@@ -84,22 +57,13 @@ void	draw_map(t_data *data)
 	int		j;
 
 	i = 0;
-	while (data->MAP[i])
+	while (data->map[i])
 	{
 		j = 0;
 		data->x = 0;
-		while (data->MAP[i][j])
+		while (data->map[i][j])
 		{
-			if (data->MAP[i][j] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->sprites.walls.image, data->x, data->y);
-			if (data->MAP[i][j] == '0')
-				mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y);
-			if (data->MAP[i][j] == 'C')
-				mlx_put_image_to_window(data->mlx, data->win, data->sprites.coin.image, data->x, data->y);
-			if (data->MAP[i][j] == 'E')
-				mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, data->x, data->y);
-			if (data->MAP[i][j] == 'P')
-				mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_front.image, data->x, data->y);
+			draw_images(data, i, j);
 			j++;
 			data->x += 32;
 		}
@@ -112,24 +76,18 @@ void	ft_display(t_data *data)
 {
 	data->x = 0;
 	data->y = 0;
-	data->C_game = 0;
-	data->mooves = 0;
-	find_e(data->MAP, data);
+	data->c_game = 0;
+	data->moves = 0;
+	find_e(data->map, data);
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, (data->map_width * 32), ((data->map_height - 1) * 32), "Sekiro Shadow Die Once");
+	data->win = mlx_new_window(data->mlx, (data->map_width * 32),
+			((data->map_height - 1) * 32), "Sekiro Shadow Die Once");
 	init_images(data);
 	init_image2(data);
 	init_image3(data);
-
 	draw_map(data);
-	
-	//mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
-
-	//mlx_key_hook(data->win, ft_key_check, data);
-	mlx_hook(data->win, 3, (1L<<0)+(1L<<1), ft_key_check, data);
+	mlx_hook(data->win, 3, (1L << 0) + (1L << 1), ft_key_check, data);
 	mlx_hook(data->win, 17, 0L, ft_stop, data);
-	
-
 	mlx_loop(data->mlx);
 }
 
@@ -143,8 +101,8 @@ int	main(int ac, char **av)
 		file = open(av[1], O_RDONLY);
 		if (file == -1)
 			return (1);
-		data.MAP = init_map(file, &data);
-		if (is_map_valid(data.MAP, &data) == 1)
+		data.map = init_map(file, &data);
+		if (is_map_valid(data.map, &data) == 1)
 			return (free_all(&data), close(file), 1);
 		ft_display(&data);
 	}

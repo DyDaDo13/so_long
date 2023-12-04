@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 19:40:14 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/02 16:14:11 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:56:16 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	remove_newlines(t_data data)
 
 	i = 0;
 	j = 0;
-	while (data.MAP[i])
+	while (data.map[i])
 	{
-		while (data.MAP[i][j++])
+		while (data.map[i][j++])
 		{
-			if (data.MAP[i][j] == '\n')
-				data.MAP[i][j] = '\0';
+			if (data.map[i][j] == '\n')
+				data.map[i][j] = '\0';
 		}
 		j = 0;
 		i++;
@@ -57,21 +57,21 @@ char	**init_map(int fd, t_data *data)
 	int		i;
 	t_map	*cpy;
 
-	data->map = init_map_struct(fd);
-	cpy = data->map;
-	i = ft_lstsize(data->map);
+	data->map_char = init_map_struct(fd);
+	cpy = data->map_char;
+	i = ft_lstsize(data->map_char);
 	data->map_height = i;
-	data->MAP = malloc(sizeof(char*) * i);
-	if (!data->MAP)
+	data->map = malloc(sizeof(char *) * i);
+	if (!data->map)
 		return (NULL);
 	i = 0;
 	while (cpy)
 	{
-		data->MAP[i] = cpy->map_line;
+		data->map[i] = cpy->map_line;
 		i++;
 		cpy = cpy->next;
 	}
-	free_list(&data->map);
+	free_list(&data->map_char);
 	remove_newlines(*data);
-	return (data->MAP);
+	return (data->map);
 }
