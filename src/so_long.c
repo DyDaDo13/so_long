@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/04 18:06:23 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:48:07 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,41 +27,54 @@ int	ft_key_check(int key, t_data *data)
 {
 	data->x = data->p_x * 32;
 	data->y = data->p_y * 32;
-	if (key == XK_Escape)
+	if (key == XK_Escape || data->MAP[data->p_y][data->p_x] == 'O')
 		ft_stop(data);
 	if (data->y > 32 && data->MAP[data->p_y - 1][data->p_x] != '1' && key == XK_w) // haut
 	{
 		data->y -= 32;
 		data->p_y -= 1;
-		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_back.image, data->x, data->y);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y + 32);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
+		ft_printf("Mooves = %i\n", data->mooves += 1);
 	}
 	if (data->y < ((data->map_height - 1) * 32) && data->MAP[data->p_y + 1][data->p_x] != '1' && key == XK_s) // bas
 	{
 		data->y += 32;
 		data->p_y += 1;
-		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_front.image, data->x, data->y);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y - 32);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
+		ft_printf("Mooves = %i\n", data->mooves += 1);
 	}
 	if (data->x > 32 && data->MAP[data->p_y][data->p_x - 1] != '1' && key == XK_a) // gauche
 	{
 		data->x -= 32;
 		data->p_x -= 1;
-		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_left.image, data->x, data->y);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x + 32, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
+		ft_printf("Mooves = %i\n", data->mooves += 1);
 	}
 	if (data->x < (data->map_width * 32) && data->MAP[data->p_y][data->p_x + 1] != '1' && key == XK_d) // droite
 	{
 		data->x += 32;
 		data->p_x += 1;
-		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_right.image, data->x, data->y);
 		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x - 32, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, (data->e_x * 32), (data->e_y * 32));
+		ft_printf("Mooves = %i\n", data->mooves += 1);
 	}
-	//mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+	if (data->MAP[data->p_y][data->p_x] == 'C')
+	{
+		data->MAP[data->p_y][data->p_x] = '0';
+		data->C_game += 1;
+	}
+	if (data->C == data->C_game)
+	{
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_open.image, (data->e_x * 32), (data->e_y * 32));
+		data->MAP[data->e_y][data->e_x] = 'O';
+	}
 	return (0);
 }
 
@@ -99,6 +112,9 @@ void	ft_display(t_data *data)
 {
 	data->x = 0;
 	data->y = 0;
+	data->C_game = 0;
+	data->mooves = 0;
+	find_e(data->MAP, data);
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, (data->map_width * 32), ((data->map_height - 1) * 32), "Sekiro Shadow Die Once");
 	init_images(data);

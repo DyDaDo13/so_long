@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/04 16:32:10 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:31:28 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,15 @@ typedef struct	s_data
 	char			**MAP;
 	void			*mlx;
 	void			*win;
+	int				C_game;
+	int				mooves;
 	int				P;
 	int				C;
 	int				E;
 	int				x;
 	int				y;
+	int				e_x;
+	int				e_y;
 	int				p_x;
 	int				p_y;
 	int				map_height;
@@ -98,6 +102,7 @@ void	free_list(t_map **map);
 void	free_all(t_data *data);
 int		is_map_valid(char **map, t_data *data);
 void	find_p(char **map, t_point *P, t_data *data);
+void	find_e(char **map, t_data *data);
 void	flood_fill(char **tab, t_point *size, t_point *begin, t_data *data);
 int		ft_strcmp(char *str, char *to_find);
 void	init_images(t_data *data);
