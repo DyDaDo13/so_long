@@ -6,7 +6,7 @@
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/04 17:30:07 by dylmarti         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:06:23 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ft_display(t_data *data)
 	data->x = 0;
 	data->y = 0;
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, (data->map_width * 32), ((data->map_height - 1) * 32), "so_long");
+	data->win = mlx_new_window(data->mlx, (data->map_width * 32), ((data->map_height - 1) * 32), "Sekiro Shadow Die Once");
 	init_images(data);
 	init_image2(data);
 	init_image3(data);
@@ -109,7 +109,8 @@ void	ft_display(t_data *data)
 	
 	//mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
 
-	mlx_key_hook(data->win, ft_key_check, data);
+	//mlx_key_hook(data->win, ft_key_check, data);
+	mlx_hook(data->win, 3, (1L<<0)+(1L<<1), ft_key_check, data);
 	mlx_hook(data->win, 17, 0L, ft_stop, data);
 	
 
