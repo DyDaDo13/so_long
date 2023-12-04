@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 13:13:55 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/02 16:17:33 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:17:06 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,17 @@ void f_fill(char **tab, t_point *size, int row, int col)
     f_fill(tab, size, row, col + 1);
 }
 
-void  flood_fill(char **tab, t_point *size, t_point *begin)
+void  flood_fill(char **tab, t_point *size, t_point *begin, t_data *data)
 {
+	char	**map;
+	int		i;
+
+	i = -1;
 	size->C = 0;
 	size->E = 0;
-    f_fill(tab, size, begin->y, begin->x);
+	map = map_dup(tab, data);
+    f_fill(map, size, begin->y, begin->x);
+	while (map[++i])
+		free(map[i]);
+	free(map);
 }

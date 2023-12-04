@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:32:54 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/03 16:29:14 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:32:10 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,35 +31,35 @@
 # include <X11/extensions/XShm.h>
 # include <X11/XKBlib.h>
 
-typedef struct s_map
+typedef struct	s_map
 {
 	char			*map_line;
 	struct	s_map	*next;
-}t_map;
+}	t_map;
 
-typedef struct s_sprites
+typedef struct	s_image
 {
-	void	*coin;
-	void	*walls;
-	void	*ground;
-	void	*exit_open;
-	void	*exit_close;
-	void	*player_left;
-	void	*player_right;
-	void	*player_front;
-	void	*player_back;
-}t_sprites;
-
-typedef struct s_image
-{
+	void 	*image;
 	char	*image_pix;
 	int		bits_per;
 	int		endian;
 	int		line_len;
-	t_sprites	sprites;
-}t_image;
+}	t_image;
 
-typedef struct s_point
+typedef struct	s_sprites
+{
+	t_image	coin;
+	t_image	walls;
+	t_image	ground;
+	t_image	exit_open;
+	t_image	exit_close;
+	t_image	player_left;
+	t_image	player_right;
+	t_image	player_front;
+	t_image	player_back;
+}	t_sprites;
+
+typedef struct	s_point
 {
 	int		x;
 	int		y;
@@ -67,7 +67,7 @@ typedef struct s_point
 	int		E;
 }t_point;
 
-typedef struct s_data
+typedef struct	s_data
 {
 	char			**MAP;
 	void			*mlx;
@@ -77,10 +77,12 @@ typedef struct s_data
 	int				E;
 	int				x;
 	int				y;
+	int				p_x;
+	int				p_y;
 	int				map_height;
 	int				map_width;
-	t_map	*map;
-	t_image	images;
+	t_map			*map;
+	t_sprites		sprites;
 }t_data;
 
 void	ft_lstadd_back(t_map **lst, t_map *new);
@@ -91,12 +93,17 @@ int		ft_lstsize(t_map *lst);
 char	**init_map(int fd, t_data *data);
 size_t	ft_strlen(char *s);
 int		ft_printf(const char *format, ...);
-void	free_map(t_data data);
+void	free_map(t_data *data);
 void	free_list(t_map **map);
-void	free_all(t_data data);
+void	free_all(t_data *data);
 int		is_map_valid(char **map, t_data *data);
-void	find_p(char **map, t_point *P);
-void 	flood_fill(char **tab, t_point *size, t_point *begin);
+void	find_p(char **map, t_point *P, t_data *data);
+void	flood_fill(char **tab, t_point *size, t_point *begin, t_data *data);
 int		ft_strcmp(char *str, char *to_find);
+void	init_images(t_data *data);
+void	init_image2(t_data *data);
+void	init_image3(t_data *data);
+void	destroy_all_images(t_data *data);
+char	**map_dup(char **tab, t_data *data);
 
 #endif

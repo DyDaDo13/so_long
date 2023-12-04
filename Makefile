@@ -17,6 +17,9 @@ validate_map.c \
 find_p.c \
 flood_fill.c \
 ft_strcmp.c \
+init_images.c \
+destroy_all_images.c \
+map_dup.c \
 #───────────────────────────────╱
 
 #┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓

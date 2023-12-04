@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   map_dup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 14:35:32 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/04 16:23:35 by dylmarti         ###   ########.fr       */
+/*   Created: 2023/12/04 15:40:39 by dylmarti          #+#    #+#             */
+/*   Updated: 2023/12/04 16:15:58 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	free_map(t_data *data)
+char	**map_dup(char **tab, t_data *data)
 {
+	char	**map;
+	int		j;
 	int		i;
 
+	i = -1;
+	map = malloc(sizeof(char *) * data->map_height);
+	while (++i < (data->map_height - 1))
+		map[i] = malloc(sizeof(char) * data->map_width + 1);
 	i = 0;
-	while (data->MAP[i])
+	while (tab[i])
 	{
-		free(data->MAP[i]);
+		j = 0;
+		while (tab[i][j])
+		{
+			map[i][j] = tab[i][j];
+			j++;
+		}
+		map[i][j] = '\0';
 		i++;
 	}
-}
-
-void	free_list(t_map **map)
-{
-	t_map	*tmp;
-	
-	tmp = *map;
-	while ((*map))
-	{
-		tmp = (*map)->next;
-		free((*map));
-		(*map) = tmp;
-	}
-}
-
-void	free_all(t_data *data)
-{
-	if (data->MAP)
-	{
-		free_map(data);
-		free(data->MAP);
-	}
+	map[i] = NULL;
+	return (map);
 }

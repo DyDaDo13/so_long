@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:47:34 by dylmarti          #+#    #+#             */
-/*   Updated: 2023/12/03 17:03:40 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/04 17:30:07 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,61 +14,100 @@
 
 int	ft_stop(t_data *data)
 {
-	mlx_destroy_image(data->mlx, data->images.sprites.coin);
+	destroy_all_images(data);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free_all(data);
 	exit(0);	
 	return (0);
 }
 
 int	ft_key_check(int key, t_data *data)
 {
+	data->x = data->p_x * 32;
+	data->y = data->p_y * 32;
 	if (key == XK_Escape)
 		ft_stop(data);
-	if (data->y > 0)
+	if (data->y > 32 && data->MAP[data->p_y - 1][data->p_x] != '1' && key == XK_w) // haut
 	{
-		data->y = data->y - 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+		data->y -= 32;
+		data->p_y -= 1;
+		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_back.image, data->x, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y + 32);
 	}
-	if (data->x > 0)
+	if (data->y < ((data->map_height - 1) * 32) && data->MAP[data->p_y + 1][data->p_x] != '1' && key == XK_s) // bas
 	{
-		data->x = data->x - 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+		data->y += 32;
+		data->p_y += 1;
+		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_front.image, data->x, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y - 32);
 	}
-	if (data->y < 1080 - 100)
+	if (data->x > 32 && data->MAP[data->p_y][data->p_x - 1] != '1' && key == XK_a) // gauche
 	{
-		data->y = data->y + 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+		data->x -= 32;
+		data->p_x -= 1;
+		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_left.image, data->x, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x + 32, data->y);
 	}
-	if (data->x < 1920 - 500)
+	if (data->x < (data->map_width * 32) && data->MAP[data->p_y][data->p_x + 1] != '1' && key == XK_d) // droite
 	{
-		data->x = data->x + 1;
-		mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+		data->x += 32;
+		data->p_x += 1;
+		printf("y = %i\nx = %i\np_y = %i\np_x = %i\n\n", data->y, data->x, data->p_y, data->p_x);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_right.image, data->x, data->y);
+		mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x - 32, data->y);
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+	//mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
 	return (0);
 }
 
-void	init_images(t_data *data)
+void	draw_map(t_data *data)
 {
-	int	x = 0;
-	int	y = 0;
-	
-	data->images.sprites.coin = mlx_xpm_file_to_image(data->mlx, "coin.xpm", &x, &y);
-	data->images.image_pix = mlx_get_data_addr(data->images.sprites.coin, &data->images.bits_per, &data->images.line_len, &data->images.endian);
-}
+	int		i;
+	int		j;
 
-void	draw_map()
+	i = 0;
+	while (data->MAP[i])
+	{
+		j = 0;
+		data->x = 0;
+		while (data->MAP[i][j])
+		{
+			if (data->MAP[i][j] == '1')
+				mlx_put_image_to_window(data->mlx, data->win, data->sprites.walls.image, data->x, data->y);
+			if (data->MAP[i][j] == '0')
+				mlx_put_image_to_window(data->mlx, data->win, data->sprites.ground.image, data->x, data->y);
+			if (data->MAP[i][j] == 'C')
+				mlx_put_image_to_window(data->mlx, data->win, data->sprites.coin.image, data->x, data->y);
+			if (data->MAP[i][j] == 'E')
+				mlx_put_image_to_window(data->mlx, data->win, data->sprites.exit_close.image, data->x, data->y);
+			if (data->MAP[i][j] == 'P')
+				mlx_put_image_to_window(data->mlx, data->win, data->sprites.player_front.image, data->x, data->y);
+			j++;
+			data->x += 32;
+		}
+		data->y += 32;
+		i++;
+	}
+}
 
 void	ft_display(t_data *data)
 {
 	data->x = 0;
 	data->y = 0;
 	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 1920, 1080, "so_long");
+	data->win = mlx_new_window(data->mlx, (data->map_width * 32), ((data->map_height - 1) * 32), "so_long");
 	init_images(data);
-	mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
+	init_image2(data);
+	init_image3(data);
+
+	draw_map(data);
+	
+	//mlx_put_image_to_window(data->mlx, data->win, data->images.sprites.coin, data->x, data->y);
 
 	mlx_key_hook(data->win, ft_key_check, data);
 	mlx_hook(data->win, 17, 0L, ft_stop, data);
@@ -76,7 +115,6 @@ void	ft_display(t_data *data)
 
 	mlx_loop(data->mlx);
 }
-
 
 int	main(int ac, char **av)
 {
@@ -90,10 +128,8 @@ int	main(int ac, char **av)
 			return (1);
 		data.MAP = init_map(file, &data);
 		if (is_map_valid(data.MAP, &data) == 1)
-			return (free_all(data), close(file), 1);
+			return (free_all(&data), close(file), 1);
 		ft_display(&data);
-		free_all(data);
-		close(file);
 	}
 	return (0);
 }

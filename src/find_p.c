@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_p.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dydado13 <dydado13@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dylmarti <dylmarti@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:56:45 by dydado13          #+#    #+#             */
-/*   Updated: 2023/12/02 14:36:51 by dydado13         ###   ########.fr       */
+/*   Updated: 2023/12/04 16:32:49 by dylmarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	find_p(char **map, t_point *P)
+void	find_p(char **map, t_point *P, t_data *data)
 {
 	int			i;
 	int			j;
@@ -27,6 +27,8 @@ void	find_p(char **map, t_point *P)
 			{
 				P->x = j;
 				P->y = i;
+				data->p_y = i;
+				data->p_x = j;
 				return ;
 			}
 			j++;
